@@ -7,6 +7,25 @@
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
 
+Core User Actions:
+- Add a pet
+    - Pet should hold name, breed, and a list of assigned tasks
+    - Task management lives on Pet, since Pet owns its task list
+    - Methods: addPet, deletePet (on Owner), insertTask, removeTask, changeAmount (on Pet)
+- Insert their availability schedule
+    - Availability should hold a list of blocked hours (hours the owner is unavailable)
+    - Availability is owned by Owner, and DailyPlan accesses it through Owner
+    - Methods: addHours, removeHours, alterHours
+- Insert Pet Tasks
+    - Pet tasks have a type (walk, feeding, grooming, playing) and a daily count
+    - TaskType is an enumeration to enforce valid task options
+    - Task management methods (insert, remove, change amount) belong to Pet, not PetTask
+    - PetTask only holds its own data: type and dailyCount
+- View a daily plan that accounts for tasks and availability
+    - DailyPlan references Owner (for availability) and Pet (for tasks), keeping the ownership chain intact
+    - After generation, the plan stores scheduledSlots (the ordered plan) and an explanation (why it was formatted that way)
+    - Methods: generate
+
 **b. Design changes**
 
 - Did your design change during implementation?
